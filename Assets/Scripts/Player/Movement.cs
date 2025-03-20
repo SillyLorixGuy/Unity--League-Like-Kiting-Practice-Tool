@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,10 +9,11 @@ public class Movement : MonoBehaviour
     public float rotateSpeedMovement = 0.05f;
     public float rotateVelocity;
 
-    
+    private HeroCombat heroCombatScript;
     void Start()
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
+        heroCombatScript = GetComponent<HeroCombat>();
     }
 
     void Update()
@@ -21,11 +23,21 @@ public class Movement : MonoBehaviour
 
     public void Animation()
     {
-
+        
     }
 
     public void Move()
     {
+        if (heroCombatScript.targetedEnemy != null)
+        {
+            if (heroCombatScript.targetedEnemy.GetComponent<HeroCombat>() != null)
+            {
+                if (!heroCombatScript.targetedEnemy.GetComponent<HeroCombat>().isHeroAlive)
+                {
+                    heroCombatScript.targetedEnemy = null;
+                }
+            }
+        }
         if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
@@ -34,6 +46,7 @@ public class Movement : MonoBehaviour
                 if(hit.collider.tag == "Ground")
                 {
                     agent.SetDestination(hit.point);
+                    heroCombatScript.targetedEnemy = null;
                     agent.stoppingDistance = 0;
 
                     Quaternion rotationToLookAt = Quaternion.LookRotation(hit.point - transform.position);
