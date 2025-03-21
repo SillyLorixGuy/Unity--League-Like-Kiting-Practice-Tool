@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class InputTargeting : MonoBehaviour
 {
+    
 
     public GameObject selectedHero;
     public bool heroPlayer;
@@ -30,6 +31,32 @@ public class InputTargeting : MonoBehaviour
                 {
                     selectedHero.GetComponent<HeroCombat>().targetedEnemy = null;
                 }
+            }
+        }
+        else if(Input.GetKeyDown("a"))
+        {
+            IsTargetable[] trgts = FindObjectsByType<IsTargetable>(FindObjectsSortMode.None);
+            GameObject closest = trgts[0].gameObject;
+            Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            foreach (var item in trgts)
+            {
+                if(Vector3.Distance(currentMousePos, item.transform.position) < Vector3.Distance(currentMousePos, closest.transform.position))
+                {
+                    closest = item.gameObject;
+                }
+            }
+            Debug.DrawRay(closest.transform.position, closest.transform.position + Vector3.up * 10, Color.red, 5);
+            Debug.Log(closest.name);
+            if (closest.GetComponent<IsTargetable>() != null)
+            {
+                if (closest.GetComponent<IsTargetable>().enemyType == IsTargetable.EnemyType.Enemy) //fix this BS
+                {
+                    selectedHero.GetComponent<HeroCombat>().targetedEnemy = closest;
+                }
+            }
+            else if (closest.GetComponent<IsTargetable>() == null)
+            {
+                selectedHero.GetComponent<HeroCombat>().targetedEnemy = null;
             }
         }
     }

@@ -15,6 +15,12 @@ public class HeroCombat : MonoBehaviour
     public bool isHeroAlive;
     public bool performMeleeAttack = true;
 
+    public static HeroCombat Instance;
+
+    void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         moveScript = GetComponent<Movement>();
