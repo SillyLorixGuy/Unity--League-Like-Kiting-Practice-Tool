@@ -13,7 +13,6 @@ public class InputTargeting : MonoBehaviour
         selectedHero = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(1))
@@ -46,7 +45,6 @@ public class InputTargeting : MonoBehaviour
                 }
             }
             Debug.DrawRay(closest.transform.position, closest.transform.position + Vector3.up * 10, Color.red, 5);
-            Debug.Log(closest.name);
             if (closest.GetComponent<IsTargetable>() != null)
             {
                 if (closest.GetComponent<IsTargetable>().enemyType == IsTargetable.EnemyType.Enemy) //fix this BS

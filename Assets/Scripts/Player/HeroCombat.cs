@@ -9,8 +9,8 @@ public class HeroCombat : MonoBehaviour
     public float attackRange;
     public float rotateSpeedForAttack;
 
-    public GameObject projectilePrefab; // Assign in Inspector
-    public Transform projectileSpawnPoint; // e.g., hand or bow
+    public GameObject projectilePrefab;
+    public Transform projectileSpawnPoint;
 
     private float attackCooldown = 0f;
     private float attackTimer = 0f;
@@ -45,7 +45,6 @@ public class HeroCombat : MonoBehaviour
             }
             else
             {
-                // Allow movement if desired — stop only when firing
                 moveScript.agent.SetDestination(transform.position);
                 RotateTowardsTarget();
 
@@ -54,7 +53,7 @@ public class HeroCombat : MonoBehaviour
                     attackTimer = 0f;
                     if (heroAttackType == HeroAttackType.Ranged)
                     {
-                        FireProjectile(); // Instant fire
+                        FireProjectile();
                     }
                 }
             }

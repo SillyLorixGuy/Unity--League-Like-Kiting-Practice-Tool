@@ -4,7 +4,7 @@ public class Projectile : MonoBehaviour
 {
     public float speed = 20f;
     public float damage;
-    public float maxTravelDistance = 15f; // Customize based on your needs
+    public float maxTravelDistance = 10f;
     public Vector3 direction;
 
     private Vector3 startPosition;
@@ -34,9 +34,6 @@ public class Projectile : MonoBehaviour
             {
                 health.TakeDamage(damage);
             }
-
-            // If it's NOT supposed to pierce, destroy on hit:
-            // Destroy(gameObject);
         }
     }
 }
