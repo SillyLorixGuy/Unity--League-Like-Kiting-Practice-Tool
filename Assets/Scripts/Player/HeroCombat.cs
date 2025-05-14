@@ -31,7 +31,7 @@ public class HeroCombat : MonoBehaviour
     {
         if (!isHeroAlive) return;
 
-        attackTimer += Time.deltaTime; // Always count cooldown time
+        attackTimer += Time.deltaTime;
 
         if (targetedEnemy != null)
         {
@@ -41,22 +41,20 @@ public class HeroCombat : MonoBehaviour
             {
                 moveScript.agent.SetDestination(targetedEnemy.transform.position);
                 moveScript.agent.stoppingDistance = attackRange;
-
                 RotateTowardsTarget();
             }
             else
             {
-                moveScript.agent.SetDestination(transform.position); // Stop moving
+                // Allow movement if desired — stop only when firing
+                moveScript.agent.SetDestination(transform.position);
                 RotateTowardsTarget();
 
-                // Fire immediately if cooldown is ready
                 if (attackTimer >= attackCooldown)
                 {
                     attackTimer = 0f;
-
                     if (heroAttackType == HeroAttackType.Ranged)
                     {
-                        StartCoroutine(RangedAttackRoutine());
+                        FireProjectile(); // Instant fire
                     }
                 }
             }
@@ -70,17 +68,14 @@ public class HeroCombat : MonoBehaviour
         transform.eulerAngles = new Vector3(0, rotationY, 0);
     }
 
-    System.Collections.IEnumerator RangedAttackRoutine()
+    void FireProjectile()
     {
-        yield return null; // optional animation delay
-
         if (targetedEnemy != null)
         {
             GameObject proj = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
             Projectile projectileScript = proj.GetComponent<Projectile>();
             projectileScript.damage = heroStats.attackDamage;
 
-            // Flatten direction to avoid vertical aiming
             Vector3 flatDirection = targetedEnemy.transform.position - projectileSpawnPoint.position;
             flatDirection.y = 0;
 
@@ -88,5 +83,4 @@ public class HeroCombat : MonoBehaviour
             proj.transform.rotation = Quaternion.LookRotation(flatDirection);
         }
     }
-
 }
