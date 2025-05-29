@@ -3,7 +3,27 @@ guid: 2502872a3ba69904993a046ab3989cc6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Temmo Body
+    second: {fileID: 2100000, guid: ee08b87ad9246b34fb381bdc25d0abc0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Temmo Wheel
+    second: {fileID: 2100000, guid: 82151e267fda540448d555e656a27f43, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Temmo Texture
+    second: {fileID: 2800000, guid: 6bc53f742161c224388d43d1418a253d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Temmo Wheel
+    second: {fileID: 2800000, guid: ad47e9312aef98843abeedc8cc620b29, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -88,7 +108,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.005
+    globalScale: 0.5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
