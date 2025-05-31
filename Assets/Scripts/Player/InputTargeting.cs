@@ -44,7 +44,6 @@ public class InputTargeting : MonoBehaviour
                     closest = item.gameObject;
                 }
             }
-            Debug.DrawRay(closest.transform.position, closest.transform.position + Vector3.up * 10, Color.red, 5);
             if (closest.GetComponent<IsTargetable>() != null)
             {
                 if (closest.GetComponent<IsTargetable>().enemyType == IsTargetable.EnemyType.Enemy) //fix this BS

@@ -71,6 +71,10 @@ public class HeroCombat : MonoBehaviour
     {
         if (targetedEnemy != null)
         {
+            // Force rotation toward the target (fixes broken aim when standing still)
+            Quaternion lookRotation = Quaternion.LookRotation(targetedEnemy.transform.position - transform.position);
+            transform.rotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
+
             GameObject proj = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
             Projectile projectileScript = proj.GetComponent<Projectile>();
             projectileScript.damage = heroStats.attackDamage;
@@ -82,4 +86,5 @@ public class HeroCombat : MonoBehaviour
             proj.transform.rotation = Quaternion.LookRotation(flatDirection);
         }
     }
+
 }
